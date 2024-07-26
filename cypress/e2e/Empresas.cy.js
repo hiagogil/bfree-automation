@@ -4,6 +4,7 @@ describe('Empresas', () => {
   beforeEach(() => {
     cy.visit('/')
     cy.Login()
+    
   })
     it('Cadastro de Empresas', () => {
       const empresas = {
