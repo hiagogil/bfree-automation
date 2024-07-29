@@ -8,9 +8,8 @@ describe('Empresas', () => {
     cy.visit('/')
     cy.Login()
   })
-    it.only('Cadastro de Empresas', () => {  
+    it('Cadastro de Empresas', () => {  
       cy.contains('Empresas').eq(0).click()
-       // cy.get('.btn.btn-register').click()
         cy.get('input[name="cpn_cli_cod"]').type(empresas.id_number)
         cy.get('input[name="cpn_name"]').type(empresas.enterprise_name)
         cy.get('[data-cy="companyform-submit-button"]').click()
