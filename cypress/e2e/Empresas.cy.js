@@ -8,9 +8,9 @@ describe('Empresas', () => {
     cy.visit('/')
     cy.Login()
   })
-    it('Cadastro de Empresas', () => {  
-     cy.get('.MuiListItemIcon-root.css-1f8bwsm').eq(0).click()
-        cy.get('.btn.btn-register').click()
+    it.only('Cadastro de Empresas', () => {  
+      cy.contains('Empresas').eq(0).click()
+       // cy.get('.btn.btn-register').click()
         cy.get('input[name="cpn_cli_cod"]').type(empresas.id_number)
         cy.get('input[name="cpn_name"]').type(empresas.enterprise_name)
         cy.get('[data-cy="companyform-submit-button"]').click()
@@ -18,7 +18,7 @@ describe('Empresas', () => {
     });
     it('Editar Empresa', () => {
       cy.intercept('GET', '/api-stage/companies/procurar/**').as('getCompanies')
-      cy.get('.MuiListItemIcon-root.css-1f8bwsm').eq(0).click()
+      cy.contains('Empresas').eq(0).click()
       cy.get(':nth-child(1) > .sc-bmzXxz > a > .btn').click()
       cy.wait('@getCompanies')
       cy.get('input[name="cpn_cli_cod"]').clear().type(empresas.id_number)
@@ -27,15 +27,15 @@ describe('Empresas', () => {
       cy.contains('Operação realizada com sucesso!').should('be.visible')
     });
     it('Erro ao excluir uma empresa', () => {
-      cy.get('.MuiListItemIcon-root.css-1f8bwsm').eq(0).click()
+      cy.contains('Empresas').eq(0).click()
       cy.get('.sc-hmdnzv > :nth-child(1) > .sc-bmzXxz > :nth-child(2)').click()
-      cy.get('.modal-footer > .btn-dark').click()
+      cy.contains('button', 'Sim').click()
       cy.contains('Não é possivel excluir o registro, pois o mesmo possui ligação com outras tabelas!').should('be.visible')
     });
     it('Sucesso ao excluir uma empresa', () => {
-      cy.get('.MuiListItemIcon-root.css-1f8bwsm').eq(0).click()
+      cy.contains('Empresas').eq(0).click()
       cy.get(':nth-child(4) > .sc-bmzXxz > :nth-child(2)').click()
-      cy.get('.modal-footer > .btn-dark').click()
+      cy.contains('button', 'Sim').click()
       cy.contains('Operação realizada com sucesso!').should('be.visible')
     });
 });
